@@ -19,6 +19,10 @@ void main() {
     cubit = MovieListCubit(mockApiService);
   });
 
+  tearDown(() {
+    cubit.close();
+  });
+
   blocTest<MovieListCubit, MovieListState>(
     'emits [loading, data] when searchMovies is successful',
     build: () => cubit,

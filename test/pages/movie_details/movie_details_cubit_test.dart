@@ -22,6 +22,10 @@ void main() {
     cubit = MovieDetailsCubit(mockApiService, testMovie);
   });
 
+  tearDown(() {
+    cubit.close();
+  });
+
   group(
     'fetchMovieDetails',
     () {

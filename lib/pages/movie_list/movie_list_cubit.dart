@@ -15,11 +15,11 @@ class MovieListCubit extends Cubit<MovieListState> {
   MovieListCubit(this._apiService) : super(const MovieListState.initial());
 
   Future searchMovies(String? query) async {
-    emit(const MovieListState.loading());
-
     if(query == null || query.isEmpty) {
       return;
     }
+
+    emit(const MovieListState.loading());
 
     final movies = await _apiService.searchMovies(query);
 

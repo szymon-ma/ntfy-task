@@ -57,6 +57,7 @@ class MovieListLoader extends StatelessWidget {
         return switch (state) {
           Loading() => const Center(child: CircularProgressIndicator(color: Colors.blue,)),
           Data(:final movies) => MovieListView(movies: movies),
+          Error(:final error) => Center(child: Text(error)),
           MovieListState() => const SizedBox.shrink(),
         };
       },

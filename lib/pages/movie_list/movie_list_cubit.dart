@@ -22,8 +22,14 @@ class MovieListCubit extends Cubit<MovieListState> {
     }
 
     final movies = await _apiService.searchMovies(query);
-    _sortMovies(movies);
-    emit(MovieListState.data(movies));
+
+    movies.fold(
+      (error) => emit(MovieListState.error(error)),
+      (movies) {
+        _sortMovies(movies);
+        emit(MovieListState.data(movies));
+      },
+    );
   }
 
   void _sortMovies(List<Movie> movies) {

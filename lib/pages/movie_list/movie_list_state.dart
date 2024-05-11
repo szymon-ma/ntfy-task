@@ -7,4 +7,6 @@ class MovieListState with _$MovieListState {
   const factory MovieListState.loading() = Loading;
 
   const factory MovieListState.data(List<Movie> movies) = Data;
+
+  const factory MovieListState.error(String error) = Error;
 }

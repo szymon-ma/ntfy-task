@@ -18,7 +18,11 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
 
   Future<void> fetchMovieDetails() async {
     final movieDetails = await apiService.getMovieDetails(movie.id);
-    emit(MovieDetailsState.data(movieDetails, _shouldWatchIt(movieDetails)));
+
+    movieDetails.fold(
+      (error) => emit(MovieDetailsState.error(error)),
+      (movieDetails) => emit(MovieDetailsState.data(movieDetails, _shouldWatchIt(movieDetails))),
+    );
   }
 
   bool _shouldWatchIt(MovieDetails movieDetails) => _isSundayToday() && _isProfitEnough(movieDetails);

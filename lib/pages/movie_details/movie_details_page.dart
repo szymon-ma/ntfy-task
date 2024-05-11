@@ -43,6 +43,7 @@ class MovieDetailsLoader extends StatelessWidget {
                 movieDetails: movieDetails,
                 shouldWatchIt: shouldWatchIt,
               ),
+            Error(:final error) => Center(child: Text(error)),
             MovieDetailsState() => const SizedBox.shrink(),
           },
         );

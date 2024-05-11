@@ -1,11 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_recruitment_task/app_router.dart';
 import 'package:flutter_recruitment_task/injectable.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/movie_card.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/movie_list_cubit.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/search_box.dart';
 
+@RoutePage()
 class MovieListPage extends StatelessWidget {
   const MovieListPage({super.key});
 
@@ -75,7 +78,7 @@ class MovieListView extends StatelessWidget {
       itemBuilder: (context, index) => MovieCard(
         title: movies[index].title,
         rating: '${(movies[index].voteAverage * 10).toInt()}%',
-        onTap: () {},
+        onTap: () => context.router.push(MovieDetailsRoute(movie: movies[index])),
       ),
       itemCount: movies.length,
     );

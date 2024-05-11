@@ -1,8 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/models/movie_details.dart';
 
+@RoutePage()
 class MovieDetailsPage extends StatefulWidget {
-  const MovieDetailsPage({super.key});
+  final Movie movie;
+
+  const MovieDetailsPage({super.key, required this.movie});
 
   @override
   State<MovieDetailsPage> createState() => _MovieDetailsPageState();

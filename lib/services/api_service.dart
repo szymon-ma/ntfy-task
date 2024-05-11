@@ -3,11 +3,18 @@ import 'dart:convert';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/models/movie_list.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
-class ApiService {
+abstract class ApiService {
+  Future<List<Movie>> searchMovies(String query);
+}
+
+@Injectable(as: ApiService)
+class ApiServiceImpl implements ApiService {
   static const apiKey = '052afdb6e0ab9af424e3f3c8edbb33fb';
   static const baseUrl = 'api.themoviedb.org';
 
+  @override
   Future<List<Movie>> searchMovies(String query) async {
     final parameters = {
       'api_key': apiKey,

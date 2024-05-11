@@ -1,76 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_recruitment_task/injectable.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/movie_card.dart';
+import 'package:flutter_recruitment_task/pages/movie_list/movie_list_cubit.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/search_box.dart';
-import 'package:flutter_recruitment_task/services/api_service.dart';
 
-class MovieListPage extends StatefulWidget {
+class MovieListPage extends StatelessWidget {
   @override
-  _MovieListPage createState() => _MovieListPage();
+  Widget build(BuildContext context) => BlocProvider(
+        create: (context) => getIt<MovieListCubit>(),
+        child: MovieListContent(),
+      );
 }
 
-class _MovieListPage extends State<MovieListPage> {
-  final apiService = ApiService();
-
-  Future<List<Movie>> _movieList = Future.value([]);
+class MovieListContent extends StatelessWidget {
+  const MovieListContent({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              icon: Icon(Icons.movie_creation_outlined),
-              onPressed: () {
-                //TODO implement navigation
-              },
-            ),
-          ],
-          title: Text('Movie Browser'),
-        ),
-        body: Column(
-          children: <Widget>[
-            SearchBox(onSubmitted: _onSearchBoxSubmitted),
-            Expanded(child: _buildContent()),
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.movie_creation_outlined),
+            onPressed: () {
+              //TODO implement navigation
+            },
+          ),
+        ],
+        title: Text('Movie Browser'),
+      ),
+      body: Column(
+        children: <Widget>[
+          SearchBox(onSubmitted: context.read<MovieListCubit>().searchMovies),
+          Expanded(child: MovieListLoader()),
+        ],
+      ),
+    );
+  }
+}
 
-  Widget _buildContent() => FutureBuilder<List<Movie>>(
-      future: _movieList,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Container(
-            padding: EdgeInsets.all(16.0),
-            alignment: Alignment.center,
-            child: Text(snapshot.error.toString()),
-          );
-        } else {
-          return _buildMoviesList(snapshot.data ?? []);
-        }
-      });
+class MovieListLoader extends StatelessWidget {
+  const MovieListLoader({super.key});
 
-  Widget _buildMoviesList(List<Movie> movies) => ListView.separated(
-        separatorBuilder: (context, index) => Container(
-          height: 1.0,
-          color: Colors.grey.shade300,
-        ),
-        itemBuilder: (context, index) => MovieCard(
-          title: movies[index].title,
-          rating: '${(movies[index].voteAverage * 10).toInt()}%',
-          onTap: () {},
-        ),
-        itemCount: movies.length,
-      );
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MovieListCubit, MovieListState>(
+      builder: (context, state) {
+        return switch (state) {
+          Loading() => Center(child: CircularProgressIndicator(color: Colors.blue,)),
+          Data(:final movies) => MovieListView(movies: movies),
+          MovieListState() => SizedBox.shrink(),
+        };
+      },
+    );
+  }
+}
 
-  void _onSearchBoxSubmitted(String text) {
-    setState(() {
-      if (text.isNotEmpty) {
-        _movieList = apiService.searchMovies(text);
-      } else {
-        _movieList = Future.value([]);
-      }
-    });
+class MovieListView extends StatelessWidget {
+  final List<Movie> movies;
+
+  const MovieListView({super.key, required this.movies});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      separatorBuilder: (context, index) => Container(
+        height: 1.0,
+        color: Colors.grey.shade300,
+      ),
+      itemBuilder: (context, index) => MovieCard(
+        title: movies[index].title,
+        rating: '${(movies[index].voteAverage * 10).toInt()}%',
+        onTap: () {},
+      ),
+      itemCount: movies.length,
+    );
   }
 }

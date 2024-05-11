@@ -55,7 +55,11 @@ class MovieListLoader extends StatelessWidget {
     return BlocBuilder<MovieListCubit, MovieListState>(
       builder: (context, state) {
         return switch (state) {
-          Loading() => const Center(child: CircularProgressIndicator(color: Colors.blue,)),
+          Loading() => const Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            ),
           Data(:final movies) => MovieListView(movies: movies),
           Error(:final error) => Center(child: Text(error)),
           MovieListState() => const SizedBox.shrink(),
@@ -73,16 +77,25 @@ class MovieListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      separatorBuilder: (context, index) => Container(
-        height: 1.0,
-        color: Colors.grey.shade300,
-      ),
+      separatorBuilder: (context, index) => const ListSeparator(),
       itemBuilder: (context, index) => MovieCard(
         title: movies[index].title,
         rating: '${(movies[index].voteAverage * 10).toInt()}%',
         onTap: () => context.router.push(MovieDetailsRoute(movie: movies[index])),
       ),
       itemCount: movies.length,
+    );
+  }
+}
+
+class ListSeparator extends StatelessWidget {
+  const ListSeparator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 1.0,
+      color: Colors.grey.shade300,
     );
   }
 }

@@ -31,6 +31,7 @@ class MovieListContent extends StatelessWidget {
             icon: const Icon(Icons.movie_creation_outlined),
             onPressed: () {
               //TODO implement navigation
+              // Szymon: Not sure what i should navigate to?
             },
           ),
         ],

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recruitment_task/pages/two_buttons/button_two_states.dart';
 
 class TwoButtonsPage extends StatefulWidget {
+  const TwoButtonsPage({super.key});
+
   @override
-  _TwoButtonsPageState createState() => _TwoButtonsPageState();
+  State<TwoButtonsPage> createState() => _TwoButtonsPageState();
 }
 
 class _TwoButtonsPageState extends State<TwoButtonsPage> {
@@ -12,7 +14,7 @@ class _TwoButtonsPageState extends State<TwoButtonsPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('2-state buttons'),
+          title: const Text('2-state buttons'),
           centerTitle: true,
         ),
         body: Center(

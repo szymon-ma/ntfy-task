@@ -7,10 +7,12 @@ import 'package:flutter_recruitment_task/pages/movie_list/movie_list_cubit.dart'
 import 'package:flutter_recruitment_task/pages/movie_list/search_box.dart';
 
 class MovieListPage extends StatelessWidget {
+  const MovieListPage({super.key});
+
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (context) => getIt<MovieListCubit>(),
-        child: MovieListContent(),
+        child: const MovieListContent(),
       );
 }
 
@@ -23,18 +25,18 @@ class MovieListContent extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: Icon(Icons.movie_creation_outlined),
+            icon: const Icon(Icons.movie_creation_outlined),
             onPressed: () {
               //TODO implement navigation
             },
           ),
         ],
-        title: Text('Movie Browser'),
+        title: const Text('Movie Browser'),
       ),
       body: Column(
         children: <Widget>[
           SearchBox(onSubmitted: context.read<MovieListCubit>().searchMovies),
-          Expanded(child: MovieListLoader()),
+          const Expanded(child: MovieListLoader()),
         ],
       ),
     );
@@ -49,9 +51,9 @@ class MovieListLoader extends StatelessWidget {
     return BlocBuilder<MovieListCubit, MovieListState>(
       builder: (context, state) {
         return switch (state) {
-          Loading() => Center(child: CircularProgressIndicator(color: Colors.blue,)),
+          Loading() => const Center(child: CircularProgressIndicator(color: Colors.blue,)),
           Data(:final movies) => MovieListView(movies: movies),
-          MovieListState() => SizedBox.shrink(),
+          MovieListState() => const SizedBox.shrink(),
         };
       },
     );

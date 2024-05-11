@@ -4,5 +4,5 @@ import 'package:flutter_recruitment_task/movie_app.dart';
 
 void main() {
   configureDependencies();
-  runApp(MovieApp());
+  runApp(const MovieApp());
 }

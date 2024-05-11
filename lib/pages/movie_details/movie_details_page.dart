@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recruitment_task/models/movie_details.dart';
 
 class MovieDetailsPage extends StatefulWidget {
+  const MovieDetailsPage({super.key});
+
   @override
-  _MovieDetailsPageState createState() => _MovieDetailsPageState();
+  State<MovieDetailsPage> createState() => _MovieDetailsPageState();
 }
 
 class _MovieDetailsPageState extends State<MovieDetailsPage> {
@@ -27,7 +29,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
             color: Colors.grey.shade300,
           ),
           itemBuilder: (context, index) => Container(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -35,7 +37,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                   _details[index].title,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 Text(
                   _details[index].content,
                   style: Theme.of(context).textTheme.titleMedium,

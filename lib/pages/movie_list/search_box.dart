@@ -19,7 +19,7 @@ class SearchBox extends StatelessWidget {
         child: TextField(
           textAlignVertical: TextAlignVertical.center,
           textInputAction: TextInputAction.search,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             prefixIcon: Icon(Icons.search),
             border: InputBorder.none,
             hintText: 'Search...',

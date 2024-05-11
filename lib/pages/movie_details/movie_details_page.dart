@@ -38,7 +38,7 @@ class MovieDetailsLoader extends StatelessWidget {
             ),
           ),
           body: switch (state) {
-            Loading() => const CircularProgressIndicator(),
+            Loading() => const Center(child: CircularProgressIndicator()),
             Data(:final movieDetails, :final shouldWatchIt) => MovieDetailsContent(
                 movieDetails: movieDetails,
                 shouldWatchIt: shouldWatchIt,

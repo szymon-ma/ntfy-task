@@ -11,7 +11,7 @@ part 'movie_details_cubit.freezed.dart';
 
 @injectable
 class MovieDetailsCubit extends Cubit<MovieDetailsState> {
-  MovieDetailsCubit(this.apiService, @factoryParam this.movie) : super(const MovieDetailsState.initial());
+  MovieDetailsCubit(this.apiService, @factoryParam this.movie) : super(const MovieDetailsState.loading());
 
   final Movie movie;
   final ApiService apiService;

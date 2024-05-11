@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:clock/clock.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/models/movie_details.dart';
 import 'package:flutter_recruitment_task/services/api_service.dart';
@@ -28,7 +29,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   bool _shouldWatchIt(MovieDetails movieDetails) => _isSundayToday() && _isProfitEnough(movieDetails);
 
   bool _isSundayToday() {
-    final now = DateTime.now();
+    final now = clock.now();
     return now.weekday == DateTime.sunday;
   }
 

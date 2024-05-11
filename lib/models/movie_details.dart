@@ -1,20 +1,13 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'movie_details.freezed.dart';
 
 part 'movie_details.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class MovieDetails {
-  final String title;
-  final int revenue;
-  final int budget;
-
-  MovieDetails({
-    required this.title,
-    required this.revenue,
-    required this.budget,
-  });
+@freezed
+class MovieDetails with _$MovieDetails {
+  const factory MovieDetails({required String title, required int revenue, required int budget}) = _MovieDetails;
 
   factory MovieDetails.fromJson(Map<String, dynamic> json) => _$MovieDetailsFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MovieDetailsToJson(this);
 }

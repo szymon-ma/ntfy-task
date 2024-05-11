@@ -17,7 +17,7 @@ class MovieCard extends StatelessWidget {
         onTap: onTap,
         child: Container(
           height: 48.0,
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             children: [
               Expanded(
@@ -27,7 +27,7 @@ class MovieCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              SizedBox(width: 16.0),
+              const SizedBox(width: 16.0),
               Text(
                 '$rating 🌟',
                 style: Theme.of(context).textTheme.titleMedium,

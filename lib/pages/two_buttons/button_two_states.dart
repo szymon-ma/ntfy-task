@@ -13,7 +13,7 @@ class ButtonTwoStates extends StatefulWidget {
   });
 
   @override
-  _ButtonTwoStatesState createState() => _ButtonTwoStatesState();
+  State<ButtonTwoStates> createState() => _ButtonTwoStatesState();
 }
 
 class _ButtonTwoStatesState extends State<ButtonTwoStates> {

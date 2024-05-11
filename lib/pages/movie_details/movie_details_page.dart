@@ -5,6 +5,7 @@ import 'package:flutter_recruitment_task/injectable.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/models/movie_details.dart';
 import 'package:flutter_recruitment_task/pages/movie_details/movie_details_cubit.dart';
+import 'package:intl/intl.dart';
 
 @RoutePage()
 class MovieDetailsPage extends StatelessWidget {
@@ -58,9 +59,11 @@ class MovieDetailsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final details = <(String, dynamic)>[
-      ('Budget', movieDetails.budget),
-      ('Revenue', movieDetails.revenue),
+    final currency = NumberFormat.simpleCurrency();
+
+    final details = [
+      ('Budget', currency.format(movieDetails.budget)),
+      ('Revenue', currency.format(movieDetails.revenue)),
       ('Should I watch it today?', shouldWatchIt ? 'Yes!' : 'No!')
     ];
 
@@ -81,7 +84,7 @@ class MovieDetailsContent extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             Text(
-              details[index].$2.toString(),
+              details[index].$2,
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ],

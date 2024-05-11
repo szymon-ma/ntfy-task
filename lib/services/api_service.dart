@@ -18,6 +18,10 @@ class ApiServiceImpl implements ApiService {
   static const apiKey = '052afdb6e0ab9af424e3f3c8edbb33fb';
   static const baseUrl = 'api.themoviedb.org';
 
+  final http.Client _client;
+
+  ApiServiceImpl(this._client);
+
   @override
   Future<Either<String, List<Movie>>> searchMovies(String query) async {
     try {
@@ -28,7 +32,7 @@ class ApiServiceImpl implements ApiService {
 
       final endpoint = Uri.https(baseUrl, '/3/search/movie', parameters);
 
-      final response = await http.get(endpoint);
+      final response = await _client.get(endpoint);
       final json = jsonDecode(response.body);
       final movieList = MovieList.fromJson(json);
 
@@ -47,7 +51,7 @@ class ApiServiceImpl implements ApiService {
 
       final endpoint = Uri.https(baseUrl, '/3/movie/$movieId', parameters);
 
-      final response = await http.get(endpoint);
+      final response = await _client.get(endpoint);
       final json = jsonDecode(response.body);
       final movieDetails = MovieDetails.fromJson(json);
       return right(movieDetails);
